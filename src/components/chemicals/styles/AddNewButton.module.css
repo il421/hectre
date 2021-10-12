@@ -1,0 +1,17 @@
+@value variables: "../../../common/variables.css";
+@value base, font-size-xsmall from variables;
+
+.button {
+    background-color: transparent;
+    border: none;
+    color: base;
+    font-size: font-size-xsmall;
+    font-weight: bolder;
+
+    cursor: pointer;
+}
+
+.button:hover {
+    opacity: 0.5;
+    transition: 0.5s;
+}

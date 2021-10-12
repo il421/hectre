@@ -1,0 +1,13 @@
+@value variables: "../../../common/variables.css";
+@value xs-size, white, black from variables;
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding: xs-size;
+
+    background-color: white;
+    box-shadow: 0px 2px 5px -1px black;
+}

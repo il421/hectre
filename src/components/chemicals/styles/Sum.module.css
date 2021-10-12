@@ -1,0 +1,7 @@
+@value variables: "../../../common/variables.css";
+@value natural-dark, font-size-xsmall from variables;
+
+.sum {
+    font-size: font-size-xsmall;
+    color: natural-dark;
+}

@@ -1,0 +1,24 @@
+@value variables: "../../../common/variables.css";
+@value font-size-xsmall, font-size-xxsmall, font-size-xxxsmall, xs-size from variables;
+
+.common {
+    margin: 0;
+    padding: xs-size;
+
+    text-transform: uppercase;
+}
+
+.h1 {
+    composes: common;
+    font-size: font-size-xsmall;
+}
+
+.h2 {
+    composes: common;
+    font-size: font-size-xxsmall;
+}
+
+.h3 {
+    composes: common;
+    font-size: font-size-xxxsmall;
+}

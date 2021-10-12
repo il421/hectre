@@ -1,0 +1,15 @@
+@value variables: "common/variables.css";
+@value font-size-xsmall, natural from variables;
+
+.appWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  height: auto;
+
+  background-color: natural;
+
+  font-size: font-size-xsmall;
+}
+

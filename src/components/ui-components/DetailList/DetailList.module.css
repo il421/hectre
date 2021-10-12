@@ -1,0 +1,40 @@
+@value variables: "../../../common/variables.css";
+@value xs-size, l-size, natural, font-size-xxsmall from variables;
+
+.detailList {
+    display: flex;
+    flex-direction: column;
+
+    padding-left: l-size;
+    padding-right: l-size;
+
+    font-size: font-size-xxsmall;
+}
+
+.detailListHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.detailListBody{
+    display: flex;
+    flex-direction: column;
+}
+
+.detailListRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.detailListRow:nth-child(odd) {
+    background-color: natural;
+}
+
+.detailListItem {
+    padding: xs-size;
+}

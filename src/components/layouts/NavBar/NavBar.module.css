@@ -1,0 +1,72 @@
+@value variables: "../../../common/variables.css";
+@value base, white, xs-size, s-size from variables;
+
+.buttonReset {
+    width: 100%;
+
+    border: none;
+    background: transparent;
+    color: white;
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+
+    background-color: base;
+}
+
+.menuButton {
+    padding: s-size;
+
+    composes: buttonReset;
+}
+
+.menuButton:hover {
+    opacity: 0.5;
+    transition: 0.5s;
+}
+
+.buttonIcon {
+    height: 20px;
+}
+
+.actionButtonsWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.actionButton {
+    display: flex;
+    justify-content: center;
+
+    padding: xs-size;
+
+    box-sizing: border-box;
+    composes: buttonReset;
+}
+
+.actionButton:hover:not([data-active="true"]) {
+    opacity: 0.5;
+    transition: 0.5s;
+}
+
+.actionButton[data-active="true"] {
+    background: white;
+    color: base;
+}
+
+.actionButtonExtended {
+    composes: actionButton;
+    justify-content: start;
+}
+
+.actionButtonText {
+    margin-left: xs-size;
+}
+
+

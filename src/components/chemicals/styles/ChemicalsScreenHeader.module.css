@@ -1,0 +1,15 @@
+@value variables: "../../../common/variables.css";
+@value base, xxxs-size from variables;
+
+.heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 2px solid base;
+}
+
+.headingWrapper {
+    display: flex;
+    align-items: center;
+}
