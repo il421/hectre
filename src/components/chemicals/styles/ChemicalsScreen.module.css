@@ -8,3 +8,8 @@
     background: white;
     height: 100%;
 }
+
+.listWrapper {
+    overflow-y: auto;
+    max-height: calc(100vh - 160px);
+}

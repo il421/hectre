@@ -2,59 +2,95 @@ import { Dispatch } from "react";
 
 import { ChemicalDto, getChemicals } from "../api/chemicals";
 import { Chemical } from "../models/Chemical";
-import { ContextActions, createContext, ReducerAction } from "./createContext";
+import { createContext, ReducerAction } from "./createContext";
 
 enum Actions {
-  fetch,
-  error,
-  loading
+  set_fetch,
+  set_error,
+  set_loading,
+  set_show,
+  set_page
 }
 
 type ChemicalsContextState = {
-  chemicals: ChemicalDto[];
-  error?: Error;
+  chemicals: Chemical[];
   loading: boolean;
+  show: number;
+  page: number;
+  error?: Error;
 };
+
+interface ChemicalsMethods {
+  fetchChemicals: () => void;
+  setPage: (payload: number) => void;
+  setShow: (payload: number) => void;
+}
+
+const defaultState = { loading: false, chemicals: [], page: 1, show: 10 };
 
 const chemicalReducer = (
   state: ChemicalsContextState,
   action: ReducerAction<Actions, any>
 ): ChemicalsContextState => {
   switch (action.type) {
-    case Actions.fetch:
+    case Actions.set_fetch:
       return {
         ...state,
         chemicals: action.payload.map((ch: ChemicalDto) => new Chemical(ch))
       };
-    case Actions.loading:
+    case Actions.set_loading:
       return {
         ...state,
         loading: action.payload
       };
-    case Actions.error:
+    case Actions.set_error:
       return {
         ...state,
         error: action.payload
+      };
+    case Actions.set_page:
+      return {
+        ...state,
+        page: action.payload
+      };
+    case Actions.set_show:
+      return {
+        ...state,
+        show: action.payload
       };
     default:
       return state;
   }
 };
 
-const fetchChemicals = (dispatch: Dispatch<ContextActions>) => async () => {
-  dispatch({ type: Actions.loading, payload: true });
+const setPage = (dispatch: Dispatch<ReducerAction<Actions, any>>) => (
+  payload: number
+) => {
+  dispatch({ type: Actions.set_page, payload });
+};
+
+const setShow = (dispatch: Dispatch<ReducerAction<Actions, any>>) => (
+  payload: number
+) => {
+  dispatch({ type: Actions.set_show, payload });
+  dispatch({ type: Actions.set_page, payload: defaultState.page });
+};
+
+const fetchChemicals = (
+  dispatch: Dispatch<ReducerAction<Actions, any>>
+) => async () => {
+  dispatch({ type: Actions.set_loading, payload: true });
 
   try {
     const data = await getChemicals();
-    dispatch({ type: Actions.fetch, payload: data });
-    dispatch({ type: Actions.loading, payload: false });
+    dispatch({ type: Actions.set_fetch, payload: data });
+    dispatch({ type: Actions.set_loading, payload: false });
   } catch (error) {
-    dispatch({ type: Actions.error, payload: error });
+    dispatch({ type: Actions.set_error, payload: error });
   }
 };
 
-export const { Context, Provider } = createContext(
-  chemicalReducer,
-  { fetchChemicals },
-  { loading: false, chemicals: [] }
-);
+export const { Context, Provider } = createContext<
+  ChemicalsContextState,
+  ChemicalsMethods
+>(chemicalReducer, { fetchChemicals, setShow, setPage }, defaultState);

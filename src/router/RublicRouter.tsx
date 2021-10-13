@@ -1,4 +1,4 @@
-import React, { ElementType, FunctionComponent } from "react";
+import { ElementType, FunctionComponent } from "react";
 
 import { Route } from "react-router-dom";
 

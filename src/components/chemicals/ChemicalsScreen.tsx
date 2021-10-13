@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext, useEffect } from "react";
+import { FunctionComponent, useCallback, useContext, useEffect } from "react";
 
 import { Context as ChemicalContext } from "../../contexts/ChemicalsContext";
 import { Chemical } from "../../models/Chemical";
@@ -6,16 +6,19 @@ import { Column, DetailList } from "../ui-components/DetailList";
 import { ChemicalsScreenFooter } from "./ChemicalsScreenFooter";
 import { ChemicalsScreenHeader } from "./ChemicalsScreenHeader";
 import styles from "./styles/ChemicalsScreen.module.css";
+import { filteredChemicals } from "./utils";
 
 const ChemicalsScreen: FunctionComponent = () => {
   const {
-    state: { chemicals, loading, error },
-    fetchChemicals
+    state: { chemicals, loading, show, page },
+    actions: { fetchChemicals }
   } = useContext(ChemicalContext);
 
+  const fetch = useCallback(() => fetchChemicals(), []);
+
   useEffect(() => {
-    fetchChemicals();
-  }, []);
+    fetch();
+  }, [fetch]);
 
   const columns: Column[] = [
     {
@@ -47,7 +50,13 @@ const ChemicalsScreen: FunctionComponent = () => {
   return (
     <div className={styles.chemicals}>
       <ChemicalsScreenHeader />
-      <DetailList items={chemicals} columns={columns} loading={loading} />
+      <div className={styles.listWrapper}>
+        <DetailList
+          items={filteredChemicals(chemicals, show, page)}
+          columns={columns}
+          loading={loading}
+        />
+      </div>
       <ChemicalsScreenFooter />
     </div>
   );

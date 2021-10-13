@@ -11,9 +11,6 @@ export const DetailList: FunctionComponent<DetailListProps> = ({
   items,
   loading
 }) => {
-  if (loading) return <RiseLoader />;
-
-  // return <RiseLoader color={"#df1d00"} />;
   return (
     <div className={styles.detailList}>
       {loading && <RiseLoader color={Colours.base} />}

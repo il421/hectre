@@ -1,24 +1,38 @@
 {
   "compilerOptions": {
+    "noFallthroughCasesInSwitch": true,
+    "outDir": "build/dist",
+    "module": "esnext",
     "target": "es5",
     "lib": [
+      "es6",
       "dom",
-      "dom.iterable",
-      "esnext"
+      "es2016.array.include"
     ],
+    "sourceMap": true,
     "allowJs": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "rootDirs": [
+      "src"
+    ],
+    "baseUrl": "src",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "allowSyntheticDefaultImports": true,
+    "strict": false,
+    "strictBindCallApply": true
   },
   "include": [
     "src"
