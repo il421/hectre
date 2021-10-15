@@ -1,19 +1,35 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 
+import { stringify } from "query-string";
+
+import { baseURL as AuthBaseUrl } from "../../../api/auth";
+import { Urls } from "../../../api/base";
+import { config } from "../../../api/config";
+import { Context as AuthorizationContext } from "../../../contexts/AuthorizationContext";
+import { LinkButton } from "../../ui-components/LinkButton/LinkButton";
 import { Logo } from "../Logo/Logo";
 import styles from "./Header.module.css";
 
 export const Header: FunctionComponent = () => {
+  const {
+    state: { code },
+    actions: { authorize }
+  } = useContext(AuthorizationContext);
+
+  const onClick = (): void => {
+    if (code) {
+      authorize(undefined);
+    } else {
+      const { grant_type, ...rest } = config;
+      const query = stringify(rest);
+      window.location.href = `${AuthBaseUrl}${Urls.authorize}?${query}`;
+    }
+  };
+
   return (
     <header className={styles.header}>
       <Logo />
-      <a
-        href={
-          "https://hectre-code-challenge.auth.ap-southeast-2.amazoncognito.com/oauth2/authorize?response_type=code&client_id=57pfn3fjg8qfdd05qdgjeq1khd&redirect_uri=http%3A%2F%2Flocalhost%3A4000%2Fcallback"
-        }
-      >
-        Login
-      </a>
+      <LinkButton onClick={onClick}>{!code ? "Login" : "Logout"}</LinkButton>
     </header>
   );
 };

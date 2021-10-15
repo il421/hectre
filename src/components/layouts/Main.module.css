@@ -1,8 +1,11 @@
 .mainWrapper {
+    display: flex;
+    flex-direction: column;
+
     flex-grow: 1;
 }
 
 .main {
-    height: auto;
+    flex-grow: 1;
 }
 

@@ -8,5 +8,4 @@ export type Column = {
 export interface DetailListProps {
   items: object[];
   columns: Column[];
-  loading: boolean;
 }

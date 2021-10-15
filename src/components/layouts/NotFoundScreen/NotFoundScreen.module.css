@@ -1,0 +1,16 @@
+@value variables: "../../../common/variables.css";
+@value base, font-size-xlarge from variables;
+
+.notFound {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%
+}
+
+.notFoundCode {
+    color: base;
+    font-weight: bolder;
+    font-size: font-size-xlarge;
+}

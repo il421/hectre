@@ -1,5 +1,7 @@
 export enum Routes {
   base = "/",
   chemicals = "/chemicals",
-  reports = "/reports"
+  reports = "/reports",
+  login = "/login",
+  callback = "/callback"
 }

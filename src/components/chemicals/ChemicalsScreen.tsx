@@ -1,5 +1,8 @@
 import { FunctionComponent, useCallback, useContext, useEffect } from "react";
 
+import { Alert, CircularProgress } from "@mui/material";
+
+import { Colours } from "../../common/variables";
 import { Context as ChemicalContext } from "../../contexts/ChemicalsContext";
 import { Chemical } from "../../models/Chemical";
 import { Column, DetailList } from "../ui-components/DetailList";
@@ -10,7 +13,7 @@ import { filteredChemicals } from "./utils";
 
 const ChemicalsScreen: FunctionComponent = () => {
   const {
-    state: { chemicals, loading, show, page },
+    state: { chemicals, loading, show, page, error },
     actions: { fetchChemicals }
   } = useContext(ChemicalContext);
 
@@ -48,17 +51,28 @@ const ChemicalsScreen: FunctionComponent = () => {
   ];
 
   return (
-    <div className={styles.chemicals}>
+    <section className={styles.chemicals}>
       <ChemicalsScreenHeader />
-      <div className={styles.listWrapper}>
-        <DetailList
-          items={filteredChemicals(chemicals, show, page)}
-          columns={columns}
-          loading={loading}
+      {loading && (
+        <CircularProgress
+          sx={{ marginTop: 20, alignSelf: "center", color: Colours.base }}
         />
-      </div>
-      <ChemicalsScreenFooter />
-    </div>
+      )}
+
+      {error && <Alert severity="error">{error.message}</Alert>}
+
+      {!loading && (
+        <>
+          <div className={styles.listWrapper}>
+            <DetailList
+              items={filteredChemicals(chemicals, show, page)}
+              columns={columns}
+            />
+          </div>
+          <ChemicalsScreenFooter />
+        </>
+      )}
+    </section>
   );
 };
 

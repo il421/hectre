@@ -16,7 +16,10 @@ export type ReducerAction<A, P> = {
 export const createContext = <State extends object, Methods extends object>(
   reducer: Reducer<State, ReducerAction<any, State>>,
   actions: {
-    [key: string]: (dispatch: Dispatch<ReducerAction<any, any>>) => void;
+    [key: string]: (
+      dispatch: Dispatch<ReducerAction<any, any>>,
+      state: State
+    ) => void;
   },
   defaultValue: State
 ) => {
@@ -31,7 +34,7 @@ export const createContext = <State extends object, Methods extends object>(
 
     let boundActions = {} as Methods;
     for (let key in actions) {
-      boundActions[key] = actions[key](dispatch);
+      boundActions[key] = actions[key](dispatch, state);
     }
 
     return (

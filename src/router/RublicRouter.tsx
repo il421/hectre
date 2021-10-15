@@ -2,7 +2,7 @@ import { ElementType, FunctionComponent } from "react";
 
 import { Route } from "react-router-dom";
 
-interface PublicRouterProps {
+export interface PublicRouterProps {
   component: ElementType;
   path: string;
   exact: boolean;

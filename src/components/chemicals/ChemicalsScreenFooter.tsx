@@ -26,6 +26,7 @@ export const ChemicalsScreenFooter: FunctionComponent = () => {
           setPage(page);
         }}
       />
+      <div>Show records</div>
       <NativeSelect
         value={show}
         onChange={evt => {
@@ -33,9 +34,9 @@ export const ChemicalsScreenFooter: FunctionComponent = () => {
           setShow(Number(evt.target.value));
         }}
       >
-        <option value={10}>Ten</option>
-        <option value={20}>Twenty</option>
-        <option value={30}>Thirty</option>
+        <option value={10}>10 rows</option>
+        <option value={20}>20 rows</option>
+        <option value={30}>30 rows</option>
       </NativeSelect>
     </div>
   );

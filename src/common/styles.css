@@ -1,0 +1,24 @@
+/* Colours */
+@value base: #df1d00;
+@value white: #fff;
+@value black: #111111;
+@value natural: #f8f8f8;
+@value natural-dark: #828282;
+
+/* Spacing */
+@value xxxs-size: 0.4rem;
+@value xxs-size: 0.6rem;
+@value xs-size: 0.8rem;
+@value s-size: 1.2rem;
+@value m-size: 1.6rem;
+@value l-size: 3.2rem;
+@value xl-size: 4.8rem;
+
+/*Font Size*/
+@value font-size-xlarge: 2.2rem;
+@value font-size-large: 1.8rem;
+@value font-size-medium: 1.6rem;
+@value font-size-small: 1.4rem;
+@value font-size-xsmall: 1rem;
+@value font-size-xxsmall: 0.8rem;
+@value font-size-xxxsmall: 0.6rem;
