@@ -1,7 +1,7 @@
 @value variables: "../../../common/variables.css";
-@value natural-dark, font-size-xsmall from variables;
+@value natural-dark, font-size-xxsmall from variables;
 
 .sum {
-    font-size: font-size-xsmall;
+    font-size: font-size-xxsmall;
     color: natural-dark;
 }

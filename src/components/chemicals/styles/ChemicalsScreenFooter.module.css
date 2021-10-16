@@ -1,8 +1,16 @@
 @value variables: "../../../common/variables.css";
-@value base, xxxs-size from variables;
+@value font-size-xxsmall, natural-dark, xs-size from variables;
 
 .footer {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
+}
+
+.showRecordText {
+    font-size: font-size-xxsmall;
+    color: natural-dark;
+
+    margin-left: xs-size;
+    margin-right: xs-size;
 }

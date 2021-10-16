@@ -1,16 +1,25 @@
 import { FunctionComponent, useContext } from "react";
 
 import { NativeSelect, Pagination } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 import { Context as ChemicalContext } from "../../contexts/ChemicalsContext";
 import styles from "./styles/ChemicalsScreenFooter.module.css";
+
+const useStyles = makeStyles(() => ({
+  root: {
+    "&::before": {
+      borderBottomColor: "red"
+    }
+  }
+}));
 
 export const ChemicalsScreenFooter: FunctionComponent = () => {
   const {
     state: { show, page, chemicals },
     actions: { setPage, setShow }
   } = useContext(ChemicalContext);
-
+  const classes = useStyles();
   const count =
     chemicals.length / show <= 0 ? 1 : Math.ceil(chemicals.length / show);
 
@@ -26,8 +35,9 @@ export const ChemicalsScreenFooter: FunctionComponent = () => {
           setPage(page);
         }}
       />
-      <div>Show records</div>
+      <div className={styles.showRecordText}>Show records</div>
       <NativeSelect
+        className={classes.root}
         value={show}
         onChange={evt => {
           evt.preventDefault();

@@ -84,9 +84,10 @@ const fetchChemicals = (
   try {
     const data = await getChemicals();
     dispatch({ type: Actions.set_fetch, payload: data });
-    dispatch({ type: Actions.set_loading, payload: false });
   } catch (error) {
     dispatch({ type: Actions.set_error, payload: error });
+  } finally {
+    dispatch({ type: Actions.set_loading, payload: false });
   }
 };
 

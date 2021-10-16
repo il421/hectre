@@ -10,7 +10,7 @@ export const ChemicalsScreenHeader: FunctionComponent = () => {
   return (
     <div className={styles.heading}>
       <div className={styles.headingWrapper}>
-        <Heading level="main">{Titles.mainChemical}</Heading>
+        <Heading level="main">{Titles.chemical}</Heading>
         <Sum />
       </div>
 

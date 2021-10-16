@@ -32,20 +32,20 @@ const ChemicalsScreen: FunctionComponent = () => {
     },
     {
       name: "activeingredient",
-      maxWidth: 200,
-      minWidth: 200,
+      maxWidth: 150,
+      minWidth: 150,
       onRender: (item: Chemical) => item.activeIngredient
     },
     {
       name: "name",
-      maxWidth: 200,
-      minWidth: 200,
+      maxWidth: 150,
+      minWidth: 150,
       onRender: (item: Chemical) => item.name
     },
     {
       name: "phi (days)",
-      maxWidth: 200,
-      minWidth: 200,
+      maxWidth: 150,
+      minWidth: 150,
       onRender: (item: Chemical) => item.phi
     }
   ];

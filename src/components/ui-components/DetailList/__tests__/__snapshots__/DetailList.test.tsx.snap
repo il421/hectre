@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match previous snapshot 1`] = `
+"<div className=\\"detailList\\">
+  <div className=\\"detailListHeader\\">
+    <div style={{...}} className=\\"detailListItem\\">
+      title1
+    </div>
+    <div style={{...}} className=\\"detailListItem\\">
+      title2
+    </div>
+  </div>
+  <div className=\\"detailListBody\\">
+    <div className=\\"detailListRow\\">
+      <div style={{...}} className=\\"detailListItem\\">
+        text1
+      </div>
+      <div style={{...}} className=\\"detailListItem\\">
+        text2
+      </div>
+    </div>
+    <div className=\\"detailListRow\\">
+      <div style={{...}} className=\\"detailListItem\\">
+        text3
+      </div>
+      <div style={{...}} className=\\"detailListItem\\">
+        text4
+      </div>
+    </div>
+  </div>
+</div>"
+`;

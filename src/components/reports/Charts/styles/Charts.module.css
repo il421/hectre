@@ -1,0 +1,18 @@
+@value variables: "../../../../common/variables.css";
+@value natural-dark, black, font-size-xxsmall,font-size-xsmall from variables;
+
+.charts {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    flex-grow: 1;
+
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-around;
+    flex-grow: 1;
+    margin-top: 100px;
+}

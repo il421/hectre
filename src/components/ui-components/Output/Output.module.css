@@ -1,0 +1,27 @@
+@value variables: "../../../common/variables.css";
+@value natural-dark, black, font-size-xxsmall,font-size-xsmall,  font-size-large, s-size from variables;
+
+.output {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.output span:first-child {
+    margin-bottom: s-size;
+    font-size: font-size-xxsmall;
+    color: natural-dark;
+}
+
+.output span:last-child {
+    display: inline-block;
+    font-size: font-size-large;
+    font-weight: 600;
+    color: black;
+}
+
+.output span:last-child small {
+    font-size: font-size-xsmall;
+}

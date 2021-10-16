@@ -1,29 +1,21 @@
 import { Dispatch } from "react";
 
-import { fetchToken } from "../api/auth";
+import { fetchToken, Token } from "../api/auth";
 import { createContext, ReducerAction } from "./createContext";
 
-enum Actions {
+export enum Actions {
   set_code,
   set_token
 }
 
-type Token = {
-  access_token: string;
-  expires_in: number;
-  id_token: string;
-  refresh_token: string;
-  token_type: string;
-};
-
 type AuthorizationContextState = {
-  code: string | undefined;
-  token: Token | undefined;
+  code: string | null;
+  token: Token | null;
 };
 
 interface AuthorizationMethods {
-  authorize: (code: string | undefined) => Promise<void>;
-  getToken: () => Promise<void>;
+  authorize: (code: string | null) => Promise<void>;
+  unauthorize: () => void;
 }
 
 const authReducer = (
@@ -46,29 +38,58 @@ const authReducer = (
   }
 };
 
-const authorize = (dispatch: Dispatch<ReducerAction<Actions, any>>) => async (
-  payload: string | undefined
-) => {
-  dispatch({ type: Actions.set_code, payload });
+const syncWithLocalStorage = (key: string | number, value: string | object) => {
+  const data = typeof value === "string" ? value : JSON.stringify(value);
+  localStorage.setItem(String(key), data);
 };
 
-const getToken = (
-  dispatch: Dispatch<ReducerAction<Actions, any>>,
-  state: AuthorizationContextState
-) => async () => {
-  const { code } = state;
+const getFromLocalStorage = (key: string | number): any | null => {
+  const data = localStorage.getItem(String(key));
+  if (data) {
+    return data;
+  }
+  return data;
+};
+
+const removeFromLocalStorage = (key: string | number): any | undefined => {
+  return localStorage.removeItem(String(key));
+};
+
+const authorize = (dispatch: Dispatch<ReducerAction<Actions, any>>) => async (
+  code: string | undefined
+) => {
   if (!code) return;
 
+  // fetch token
   try {
-    const token = fetchToken({ code });
-    dispatch({ type: Actions.set_code, payload: token });
+    const token = await fetchToken({ code });
+    // persist token for both state and localeStorage
+    dispatch({ type: Actions.set_token, payload: token });
+    dispatch({ type: Actions.set_code, payload: code });
+
+    syncWithLocalStorage(Actions.set_code, code);
+    syncWithLocalStorage(Actions.set_token, token);
   } catch (e) {
     // logout if token is expired
-    dispatch({ type: Actions.set_code, payload: undefined });
+    unauthorize(dispatch)();
   }
+};
+
+const unauthorize = (dispatch: Dispatch<ReducerAction<Actions, any>>) => () => {
+  dispatch({ type: Actions.set_code, payload: undefined });
+  dispatch({ type: Actions.set_token, payload: undefined });
+  removeFromLocalStorage(Actions.set_token);
+  removeFromLocalStorage(Actions.set_code);
 };
 
 export const { Context, Provider } = createContext<
   AuthorizationContextState,
   AuthorizationMethods
->(authReducer, { authorize, getToken }, { code: undefined, token: undefined });
+>(
+  authReducer,
+  { authorize, unauthorize },
+  {
+    code: getFromLocalStorage(Actions.set_code),
+    token: getFromLocalStorage(Actions.set_token)
+  }
+);

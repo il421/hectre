@@ -5,9 +5,9 @@ import {
   fetchOrchardRefData,
   fetchVarietyRefData,
   HarvestDto,
-  HarvestRefData,
   RefData
 } from "../api/harvest";
+import { refDataToMap } from "../common/utils";
 import { Harvest } from "../models/Harvest";
 import { createContext, ReducerAction } from "./createContext";
 
@@ -18,6 +18,13 @@ enum Actions {
   set_error
 }
 
+export type RefDataWithColor = { name: RefData["name"]; color: string };
+
+export type HarvestRefData = {
+  orchards: Map<string, RefDataWithColor>;
+  variety: Map<string, RefDataWithColor>;
+};
+
 type HarvestContextState = {
   harvest: Harvest[];
   loading: boolean;
@@ -27,16 +34,14 @@ type HarvestContextState = {
 };
 
 interface HarvestMethods {
-  fetchChemicals: () => void;
-  setPage: (payload: number) => void;
-  setShow: (payload: number) => void;
+  getHarvest: () => void;
 }
 
 const defaultState: HarvestContextState = {
   loading: false,
   harvest: [],
-  orchards: new Map<string, RefData["name"][]>(),
-  variety: new Map<string, RefData["name"][]>()
+  orchards: new Map(),
+  variety: new Map()
 };
 
 const harvestReducer = (
@@ -47,14 +52,7 @@ const harvestReducer = (
     case Actions.set_harvest:
       return {
         ...state,
-        harvest: action.payload.map(
-          (hr: HarvestDto) =>
-            // create a model with refData
-            new Harvest(hr, {
-              orchards: state.orchards,
-              variety: state.variety
-            })
-        )
+        harvest: action.payload.map((hr: HarvestDto) => new Harvest(hr))
       };
     case Actions.set_loading:
       return {
@@ -70,12 +68,8 @@ const harvestReducer = (
       return {
         ...state,
         // covert ref data dtos array to map for convenience
-        variety: new Map(
-          action.payload.variety.map((dto: RefData) => [dto.id, dto.name])
-        ),
-        orchards: new Map(
-          action.payload.orchards.map((dto: RefData) => [dto.id, dto.name])
-        )
+        variety: refDataToMap(action.payload.variety),
+        orchards: refDataToMap(action.payload.orchards)
       };
     default:
       return state;
@@ -89,10 +83,9 @@ const getRefData = (
   const promises = Promise.all([fetchOrchardRefData(), fetchVarietyRefData()]);
 
   try {
-    const [orchard, variety] = await promises;
-    dispatch({ type: Actions.set_ref_data, payload: { orchard, variety } });
+    const [orchards, variety] = await promises;
+    dispatch({ type: Actions.set_ref_data, payload: { orchards, variety } });
   } catch (e) {
-    // @TODO chekc the eror tiel to thro erro or store erro
     dispatch({ type: Actions.set_error, payload: e });
   } finally {
     dispatch({ type: Actions.set_loading, payload: false });

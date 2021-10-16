@@ -13,6 +13,8 @@ const AppRouter: FunctionComponent = (): JSX.Element => {
   return (
     <Switch>
       <Redirect exact={true} from={Routes.base} to={Routes.chemicals} />
+      <Redirect from={Routes.callback} to={Routes.chemicals} />
+
       <PublicRouter
         path={Routes.chemicals}
         component={ChemicalsScreen}

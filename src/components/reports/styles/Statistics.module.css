@@ -1,0 +1,14 @@
+@value variables: "../../../common/variables.css";
+@value white, xxs-size, s-size from variables;
+
+.statistics {
+    display: flex;
+    flex-direction: column;
+    margin: xxs-size;
+    padding: s-size;
+
+    background: white;
+    height: 100%;
+
+    border-radius: 5px;
+}

@@ -1,13 +1,6 @@
-import {
-  FunctionComponent,
-  useContext,
-  useState
-} from "react";
+import { FunctionComponent, useContext, useState } from "react";
 
-import {
-  Link,
-  useLocation
-} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import {
   faBars,
@@ -16,9 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import {
-  Context as AuthorizationContext
-} from "../../../contexts/AuthorizationContext";
+import { Context as AuthorizationContext } from "../../../contexts/AuthorizationContext";
 import { Routes } from "../../../router";
 import styles from "./NavBar.module.css";
 
@@ -26,8 +17,7 @@ export const NavBar: FunctionComponent = () => {
   const [isExtended, setIsExtended] = useState<boolean>(false);
   const { pathname } = useLocation();
   const {
-    state: { code },
-    actions: { getToken }
+    state: { code }
   } = useContext(AuthorizationContext);
 
   return (
@@ -35,7 +25,6 @@ export const NavBar: FunctionComponent = () => {
       <button
         className={styles.menuButton}
         onClick={evt => {
-          code && getToken();
           evt.preventDefault();
           setIsExtended(prev => !prev);
         }}

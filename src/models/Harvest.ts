@@ -1,7 +1,9 @@
-import { HarvestDto, HarvestRefData } from "../api/harvest";
+import { DateTime } from "luxon";
+
+import { HarvestDto } from "../api/harvest";
 
 export class Harvest {
-  constructor(private dto: HarvestDto, private refData?: HarvestRefData) {}
+  constructor(private dto: HarvestDto) {}
 
   get id() {
     return this.dto.id;
@@ -15,20 +17,12 @@ export class Harvest {
     return this.dto.varietyId;
   }
 
-  get varietyName() {
-    return this.refData?.variety.get(this.dto.varietyId);
-  }
-
   get orchardId() {
     return this.dto.orchardId;
   }
 
-  get orchardName() {
-    return this.refData?.orchards.get(this.dto.orchardId);
-  }
-
   get pickingDate() {
-    return this.dto.pickingDate;
+    return DateTime.fromISO(this.dto.pickingDate);
   }
 
   get numberOfBins() {

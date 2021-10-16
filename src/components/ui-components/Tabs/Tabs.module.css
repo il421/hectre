@@ -1,0 +1,7 @@
+@value variables: "../../../common/variables.css";
+@value white, xxs-size, s-size from variables;
+
+.tabs {
+    display: flex;
+    justify-content: space-between;
+}

@@ -5,11 +5,6 @@ export type RefData = {
   name: string;
 };
 
-export type HarvestRefData = {
-  orchards: Map<string, RefData["name"][]>;
-  variety: Map<string, RefData["name"][]>;
-};
-
 export type OrchardDto = RefData[];
 export type VarietyDto = RefData[];
 
@@ -18,7 +13,7 @@ export type HarvestDto = {
   userId: string;
   varietyId: string;
   orchardId: string;
-  pickingDate: Date;
+  pickingDate: string;
   numberOfBins: number;
   hoursWorked: number;
   payRatePerHour: number;

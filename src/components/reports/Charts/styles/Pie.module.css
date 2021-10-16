@@ -1,0 +1,26 @@
+@value variables: "../../../../common/variables.css";
+@value natural-dark, black, font-size-xxsmall,font-size-xsmall from variables;
+
+.pie {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.pie {
+
+}
+
+.title {
+    font-size: font-size-xxsmall;
+    color: natural-dark;
+    text-transform: capitalize;
+
+}
+
+.total {
+    font-size: font-size-xxsmall;
+    color: black;
+}

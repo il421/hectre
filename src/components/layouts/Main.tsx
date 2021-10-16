@@ -6,7 +6,7 @@ import styles from "./Main.module.css";
 
 export const Main: FunctionComponent = () => {
   return (
-    <div className={styles.mainWrapper}>
+    <div className={styles.main}>
       <Header />
 
       <main className={styles.main}>

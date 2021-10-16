@@ -5,6 +5,7 @@ import { stringify } from "query-string";
 import { baseURL as AuthBaseUrl } from "../../../api/auth";
 import { Urls } from "../../../api/base";
 import { config } from "../../../api/config";
+import { AuthorizationService } from "../../../AuthorizationService";
 import { Context as AuthorizationContext } from "../../../contexts/AuthorizationContext";
 import { LinkButton } from "../../ui-components/LinkButton/LinkButton";
 import { Logo } from "../Logo/Logo";
@@ -13,12 +14,12 @@ import styles from "./Header.module.css";
 export const Header: FunctionComponent = () => {
   const {
     state: { code },
-    actions: { authorize }
+    actions: { unauthorize }
   } = useContext(AuthorizationContext);
 
   const onClick = (): void => {
     if (code) {
-      authorize(undefined);
+      unauthorize();
     } else {
       const { grant_type, ...rest } = config;
       const query = stringify(rest);
@@ -30,6 +31,7 @@ export const Header: FunctionComponent = () => {
     <header className={styles.header}>
       <Logo />
       <LinkButton onClick={onClick}>{!code ? "Login" : "Logout"}</LinkButton>
+      <AuthorizationService />
     </header>
   );
 };

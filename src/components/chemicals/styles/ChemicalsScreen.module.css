@@ -1,11 +1,12 @@
 @value variables: "../../../common/variables.css";
-@value white, xxxs-size from variables;
+@value white, xxs-size, s-size from variables;
 
 .chemicals {
     display: flex;
     flex-direction: column;
-    margin: xxxs-size;
-    padding: xxxs-size;
+    margin: xxs-size;
+    padding: s-size;
+
 
     background: white;
     height: 100%;

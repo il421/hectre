@@ -1,4 +1,4 @@
-import { ChemicalDto } from "../src/api/auth";
+import { ChemicalDto } from "../src/api/chemicals";
 
 export const chemicals: ChemicalDto[] = [
   {

@@ -1,0 +1,12 @@
+@value variables: "../../../common/variables.css";
+@value natural, base, s-size from variables;
+
+.totals {
+    display: flex;
+    justify-content: space-between;
+
+    padding:  s-size;
+
+    background-color: natural;
+    border-top: 2px solid base;
+}

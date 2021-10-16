@@ -1,0 +1,30 @@
+@value variables: "../../../../common/variables.css";
+@value natural-dark, black, font-size-xxsmall,font-size-xsmall from variables;
+
+.legend {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    width: 400px;
+}
+
+.wrapper {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    height: 15px;
+}
+
+.color {
+    height: 10px;
+    width:  30px;
+
+    border-radius: 2px;
+}
+
+.title {
+    font-size: font-size-xxsmall;
+    color: black;
+}

@@ -4,11 +4,12 @@ import { stringify } from "query-string";
 import { Urls } from "./base";
 import { config } from "./config";
 
-export type ChemicalDto = {
-  chemicalType: string;
-  activeIngredient: string;
-  name: string;
-  phi: string;
+export type Token = {
+  access_token: string;
+  expires_in: number;
+  id_token: string;
+  refresh_token: string;
+  token_type: string;
 };
 
 export const baseURL =
