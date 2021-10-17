@@ -4,6 +4,8 @@
 .percentage {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+
     margin: xxs-size;
     padding: s-size;
 

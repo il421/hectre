@@ -1,0 +1,8 @@
+@value variables: "../../../common/variables.css";
+@value xs-size, l-size, natural, font-size-xxsmall from variables;
+
+.range {
+    display: flex;
+
+    gap: 10px;
+}

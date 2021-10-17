@@ -1,12 +1,9 @@
 import { FunctionComponent } from "react";
 
 import {
-  FormControl,
-  InputLabel,
   MenuItem,
-  OutlinedInput,
-  Select as MuiSelect,
   SelectProps as MuiSelectProps,
+  TextField,
   Theme,
   useTheme
 } from "@mui/material";
@@ -56,30 +53,29 @@ export const Select: FunctionComponent<SelectProps> = ({
   const theme = useTheme();
 
   return (
-    <FormControl sx={{ m: 1, width: 300 }}>
-      <InputLabel id="multiple-name-label" sx={{ textTransform: "capitalize" }}>
-        {label}
-      </InputLabel>
-      <MuiSelect
-        size="small"
-        labelId="multiple-name-label"
-        multiple={multiple}
-        value={value}
-        input={<OutlinedInput label={label} />}
-        onChange={onChange}
-      >
-        {emptyValue && (
-          <MenuItem value="">
-            <em>{emptyValue}</em>
-          </MenuItem>
-        )}
+    <TextField
+      size="small"
+      label={label}
+      variant="outlined"
+      style={{ width: 200 }}
+      select
+      SelectProps={{
+        value,
+        onChange,
+        multiple
+      }}
+    >
+      {emptyValue && (
+        <MenuItem value="">
+          <em>{emptyValue}</em>
+        </MenuItem>
+      )}
 
-        {options.map(({ key, text }) => (
-          <MenuItem key={key} value={key} style={getStyles(text, value, theme)}>
-            {text}
-          </MenuItem>
-        ))}
-      </MuiSelect>
-    </FormControl>
+      {options.map(({ key, text }) => (
+        <MenuItem key={key} value={key} style={getStyles(text, value, theme)}>
+          {text}
+        </MenuItem>
+      ))}
+    </TextField>
   );
 };

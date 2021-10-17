@@ -19,4 +19,6 @@ code {
 
 #root {
   height: inherit;
+  display: flex;
+  flex-direction: column;
 }

@@ -4,6 +4,7 @@ import { toLocalRound } from "../../../common/utils";
 import { Titles } from "../../../common/variables";
 import { Context as HarvestContext } from "../../../contexts/HarvestContext";
 import {
+  getPieData,
   getStatistics,
   getStatisticsTotal,
   StatisticsId,
@@ -31,11 +32,14 @@ export const Charts: FunctionComponent<ChartsProps> = ({ type }) => {
     key: isVarieties ? "varietyId" : "orchardId"
   });
 
+  const prodPieData = getPieData(statistics, "production");
+  const costsPieData = getPieData(statistics, "cost");
+
   return (
     <div className={styles.charts}>
       <div className={styles.wrapper}>
         <Pie
-          data={statistics.map(prod => ({ ...prod, value: prod.production }))}
+          data={prodPieData}
           title={Titles.production}
           total={`${toLocalRound(
             getStatisticsTotal(statistics, StatisticsId.production)
@@ -51,7 +55,7 @@ export const Charts: FunctionComponent<ChartsProps> = ({ type }) => {
           )}
         />
         <Pie
-          data={statistics.map(prod => ({ ...prod, value: prod.cost }))}
+          data={costsPieData}
           title={Titles.cost}
           total={`$${toLocalRound(
             getStatisticsTotal(statistics, StatisticsId.cost)
@@ -61,7 +65,8 @@ export const Charts: FunctionComponent<ChartsProps> = ({ type }) => {
             <Tooltip
               data={{
                 ...data,
-                tooltip: `${data.title} $${toLocalRound(data.value)}`
+                tooltip: `${data.title} $${toLocalRound(data.value)}`,
+                dateRange: data.dateRange
               }}
             />
           )}

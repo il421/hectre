@@ -4,6 +4,7 @@ import { Context as HarvestContext } from "../../contexts/HarvestContext";
 import { ApiExceptionsHandler } from "../ui-components/ApiExceptionsHandler";
 import { Percentage } from "./Percentage";
 import { Statistics } from "./Statistics";
+import styles from "./styles/ReportScreen.module.css";
 
 export const ReportScreen: FunctionComponent = () => {
   const {
@@ -18,7 +19,7 @@ export const ReportScreen: FunctionComponent = () => {
   }, [fetch]);
 
   return (
-    <section>
+    <section className={styles.report}>
       <ApiExceptionsHandler loading={loading} error={error}>
         <Statistics />
         <Percentage />

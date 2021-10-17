@@ -40,3 +40,11 @@ export const toLocalRound = (num: Number, fraction?: number) =>
  */
 export const refDataToObj = (map: Map<string, string>): RefData[] =>
   Array.from(map.keys()).map(key => ({ id: key, name: map.get(key)! }));
+
+/**
+ * Capitalize first string letter
+ * @param value
+ */
+export const capitalizeFirstLetter = (value: string) => {
+  return value.charAt(0).toUpperCase() + value.toLowerCase().slice(1);
+};

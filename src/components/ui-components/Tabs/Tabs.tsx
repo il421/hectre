@@ -21,7 +21,7 @@ export const Tabs: FunctionComponent<TabsProps> = ({
   return (
     <div className={styles.tabs}>
       <MuiTabs
-        sx={{ alignSelf: "baseline" }}
+        sx={{ alignSelf: "baseline", minWidth: 225 }}
         textColor="secondary"
         indicatorColor="primary"
         value={tab}

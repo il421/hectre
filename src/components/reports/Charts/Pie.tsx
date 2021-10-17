@@ -7,14 +7,19 @@ import ReactTooltip from "react-tooltip";
 import { Colours } from "../../../common/variables";
 import styles from "./styles/Pie.module.css";
 
-type Data = { title: string; value: number; color: string };
+export type PieData = {
+  title: string;
+  value: number;
+  color: string;
+  dateRange: string;
+};
 
 interface PieProps {
   title: string;
   total: string;
-  data: Data[];
+  data: PieData[];
   label?: LabelRenderFunction;
-  getTooltip: (data: Data) => JSX.Element;
+  getTooltip: (data: PieData) => JSX.Element;
 }
 
 export const Pie: FunctionComponent<PieProps> = ({

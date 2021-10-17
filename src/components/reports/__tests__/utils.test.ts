@@ -1,11 +1,14 @@
-import { harvest } from "../../../../testData/harvest";
+import { DateTime } from "luxon";
+
+import { harvest as harvestTestData } from "../../../../testData/harvest";
 import { varieties } from "../../../../testData/varieties";
 import { refDataToMap } from "../../../common/utils";
 import { Harvest } from "../../../models/Harvest";
-import { getStatistics, getTotals } from "../utils";
+import { filterHarvest, getStatistics, getTotals } from "../utils";
 
+const harvest = harvestTestData.map(h => new Harvest(h));
 test("getTotals should return correct data", () => {
-  const result = getTotals(harvest.map(h => new Harvest(h)));
+  const result = getTotals(harvest);
   expect(result.varieties).toBe(2);
   expect(result.staff).toBe(3);
   expect(result.workingHours).toBe(24.594363);
@@ -16,7 +19,7 @@ test("getTotals should return correct data", () => {
 
 test("getStatistics should return correct data", () => {
   const result = getStatistics({
-    harvest: harvest.map(h => new Harvest(h)),
+    harvest,
     refData: refDataToMap(varieties),
     key: "varietyId"
   });
@@ -27,4 +30,11 @@ test("getStatistics should return correct data", () => {
 
   expect(result[0].cost).toBe(67.20918793064101);
   expect(result[1].cost).toBe(134.41837586128202);
+});
+
+test("filterHarvest should filter harvest correctly", () => {
+  const orchard: string[] = ["4eb58296-5eda-49a1-9831-5838e52bc4dd"];
+  const from: DateTime = DateTime.fromISO("2021-10-09T00:00:00");
+  const result = filterHarvest(harvest, { orchard, from, to: null });
+  expect(result.length).toBe(1);
 });

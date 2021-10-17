@@ -23,9 +23,7 @@ export const PrivateRouter: React.FunctionComponent<PrivateRouterProps> = ({
       {...rest}
       component={(props: any) =>
         isAuthorized ? (
-          <div>
-            <Component {...props} />
-          </div>
+          <Component {...props} />
         ) : (
           <Redirect to={Routes.chemicals} />
         )

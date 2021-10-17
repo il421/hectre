@@ -1,5 +1,7 @@
 import { Dispatch } from "react";
 
+import { DateTime } from "luxon";
+
 import {
   fetchHarvest,
   fetchOrchardRefData,
@@ -24,8 +26,10 @@ export type HarvestRefData = {
   variety: Map<string, RefData["name"]>;
 };
 
-type Filter = {
+export type Filter = {
   orchard: string[];
+  to: DateTime | null;
+  from: DateTime | null;
 };
 
 type HarvestContextState = {
@@ -39,7 +43,7 @@ type HarvestContextState = {
 
 interface HarvestMethods {
   getHarvest: () => void;
-  setFilter: (key: keyof Filter, value: string[]) => void;
+  setFilter: (key: keyof Filter, value: string[] | DateTime | null) => void;
 }
 
 const defaultState: HarvestContextState = {
@@ -48,7 +52,9 @@ const defaultState: HarvestContextState = {
   orchards: new Map(),
   variety: new Map(),
   filter: {
-    orchard: []
+    orchard: [],
+    to: null,
+    from: null
   }
 };
 
