@@ -3,7 +3,6 @@
 
 .filters {
     display: flex;
-    flex-direction: column;
     margin: xxxs-size;
     padding: xxxs-size;
 

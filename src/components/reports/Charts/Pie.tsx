@@ -26,15 +26,18 @@ export const Pie: FunctionComponent<PieProps> = ({
 }) => {
   const [hovered, setHovered] = useState<number | null>(null);
 
+  const TOOLTIP_ID = "chart";
+
   return (
-    <div className={styles.pie} data-tip="" data-for="chart">
+    <div className={styles.pie} data-tip="" data-for={TOOLTIP_ID}>
       <PieChart
         animate
         label={label}
-        labelStyle={{ fontSize: 5, color: Colours.white }}
-        style={{ height: 200 }}
+        labelStyle={{ fontSize: 3 }}
+        style={{ height: 400 }}
         data={data}
-        labelPosition={85}
+        labelPosition={110}
+        radius={30}
         onMouseOver={(evt, index) => {
           evt.preventDefault();
           setHovered(index);
@@ -44,10 +47,10 @@ export const Pie: FunctionComponent<PieProps> = ({
         }}
       />
       <ReactTooltip
+        className={styles.tooltip}
         backgroundColor={Colours.white}
-        borderColor={Colours.naturalDark}
         border
-        id="chart"
+        id={TOOLTIP_ID}
         getContent={() => (hovered !== null ? getTooltip(data[hovered]) : null)}
       />
 

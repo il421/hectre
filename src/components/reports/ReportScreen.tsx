@@ -1,21 +1,28 @@
-import { FunctionComponent, useContext, useEffect } from "react";
+import { FunctionComponent, useCallback, useContext, useEffect } from "react";
 
 import { Context as HarvestContext } from "../../contexts/HarvestContext";
+import { ApiExceptionsHandler } from "../ui-components/ApiExceptionsHandler";
 import { Percentage } from "./Percentage";
 import { Statistics } from "./Statistics";
 
 export const ReportScreen: FunctionComponent = () => {
   const {
-    actions: { getHarvest }
+    actions: { getHarvest },
+    state: { loading, error }
   } = useContext(HarvestContext);
 
+  const fetch = useCallback(() => getHarvest(), []);
+
   useEffect(() => {
-    getHarvest();
-  }, []);
+    fetch();
+  }, [fetch]);
+
   return (
     <section>
-      <Statistics />
-      <Percentage />
+      <ApiExceptionsHandler loading={loading} error={error}>
+        <Statistics />
+        <Percentage />
+      </ApiExceptionsHandler>
     </section>
   );
 };

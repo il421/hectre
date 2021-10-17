@@ -1,5 +1,5 @@
 @value variables: "../../../../common/variables.css";
-@value black, xxs-size from variables;
+@value natural-dark, white, xxs-size from variables;
 
 .tooltip {
     display: flex;
@@ -13,4 +13,8 @@
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+.icon {
+    color: natural-dark;
 }

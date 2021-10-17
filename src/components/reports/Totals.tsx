@@ -8,10 +8,16 @@ import { getTotals, Totals as TotalsType } from "./utils";
 
 export const Totals: FunctionComponent = () => {
   const {
-    state: { harvest }
+    state: { harvest, filter }
   } = useContext(HarvestContext);
 
-  const totals = toArray<TotalsType>(getTotals(harvest));
+  const filteredHarvest = harvest.filter(har => {
+    return !filter.orchard.length
+      ? true
+      : filter.orchard.some(orch => orch === har.orchardId);
+  });
+
+  const totals = toArray<TotalsType>(getTotals(filteredHarvest));
 
   return (
     <div className={styles.totals}>

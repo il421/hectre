@@ -15,14 +15,17 @@ enum Actions {
   set_ref_data,
   set_harvest,
   set_loading,
-  set_error
+  set_error,
+  set_filter
 }
 
-export type RefDataWithColor = { name: RefData["name"]; color: string };
-
 export type HarvestRefData = {
-  orchards: Map<string, RefDataWithColor>;
-  variety: Map<string, RefDataWithColor>;
+  orchards: Map<string, RefData["name"]>;
+  variety: Map<string, RefData["name"]>;
+};
+
+type Filter = {
+  orchard: string[];
 };
 
 type HarvestContextState = {
@@ -31,17 +34,22 @@ type HarvestContextState = {
   orchards: HarvestRefData["orchards"];
   variety: HarvestRefData["variety"];
   error?: Error;
+  filter: Filter;
 };
 
 interface HarvestMethods {
   getHarvest: () => void;
+  setFilter: (key: keyof Filter, value: string[]) => void;
 }
 
 const defaultState: HarvestContextState = {
   loading: false,
   harvest: [],
   orchards: new Map(),
-  variety: new Map()
+  variety: new Map(),
+  filter: {
+    orchard: []
+  }
 };
 
 const harvestReducer = (
@@ -64,10 +72,16 @@ const harvestReducer = (
         ...state,
         error: action.payload
       };
+    case Actions.set_filter:
+      const { key, value } = action.payload;
+      return {
+        ...state,
+        filter: { ...state.filter, [key]: value }
+      };
     case Actions.set_ref_data:
       return {
         ...state,
-        // covert ref data dtos array to map for convenience
+        // covert ref data dto array to map for convenience
         variety: refDataToMap(action.payload.variety),
         orchards: refDataToMap(action.payload.orchards)
       };
@@ -108,7 +122,14 @@ const getHarvest = (
   }
 };
 
+const setFilter = (dispatch: Dispatch<ReducerAction<Actions, any>>) => (
+  key: keyof Filter,
+  value: string
+) => {
+  dispatch({ type: Actions.set_filter, payload: { key, value } });
+};
+
 export const { Context, Provider } = createContext<
   HarvestContextState,
   HarvestMethods
->(harvestReducer, { getHarvest, getRefData }, defaultState);
+>(harvestReducer, { getHarvest, getRefData, setFilter }, defaultState);

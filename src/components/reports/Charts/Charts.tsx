@@ -11,8 +11,8 @@ import {
 } from "../utils";
 import { Legend } from "./Legend";
 import { Pie } from "./Pie";
+import { Tooltip } from "./PieTooltipContent";
 import styles from "./styles/Charts.module.css";
-import { Tooltip } from "./Tooltip";
 
 interface ChartsProps {
   type: StatisticsType;
@@ -30,8 +30,6 @@ export const Charts: FunctionComponent<ChartsProps> = ({ type }) => {
     refData: isVarieties ? variety : orchards,
     key: isVarieties ? "varietyId" : "orchardId"
   });
-
-  console.log(statistics);
 
   return (
     <div className={styles.charts}>
@@ -59,7 +57,14 @@ export const Charts: FunctionComponent<ChartsProps> = ({ type }) => {
             getStatisticsTotal(statistics, StatisticsId.cost)
           )}`}
           label={({ dataEntry }) => `$${toLocalRound(dataEntry.value)}`}
-          getTooltip={data => <div>ccc</div>}
+          getTooltip={data => (
+            <Tooltip
+              data={{
+                ...data,
+                tooltip: `${data.title} $${toLocalRound(data.value)}`
+              }}
+            />
+          )}
         />
       </div>
 

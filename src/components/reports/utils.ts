@@ -1,5 +1,6 @@
+import stringToColor from "string-to-color";
+
 import { unique } from "../../common/utils";
-import { RefDataWithColor } from "../../contexts/HarvestContext";
 import { Harvest } from "../../models/Harvest";
 
 export type Totals = {
@@ -58,7 +59,7 @@ export const getTotals = (harvest: Harvest[]): Totals => {
 
 export const getStatistics = (options: {
   harvest: Harvest[];
-  refData: Map<string, RefDataWithColor>;
+  refData: Map<string, string>;
   key: "varietyId" | "orchardId";
 }) => {
   const { refData, harvest, key } = options;
@@ -66,18 +67,23 @@ export const getStatistics = (options: {
     key,
     production: 0,
     cost: 0,
-    title: refData.get(key)?.name ?? "",
-    color: refData.get(key)?.color ?? ""
+    title: refData.get(key) ?? "",
+    color: stringToColor(key)
   }));
 
-  return harvest.reduce((acc: Statistics[], har: Harvest) => {
-    const index = acc.findIndex(i => i.key === har[key]);
-    if (index >= 0) {
-      acc[index].production += har.numberOfBins;
-      acc[index].cost += har.payRate;
-    }
-    return acc;
-  }, defaultAcc);
+  return (
+    harvest
+      .reduce((acc: Statistics[], har: Harvest) => {
+        const index = acc.findIndex(i => i.key === har[key]);
+        if (index >= 0) {
+          acc[index].production += har.numberOfBins;
+          acc[index].cost += har.payRate;
+        }
+        return acc;
+      }, defaultAcc)
+      // excluded elements with no data
+      .filter(stat => stat.cost > 0 && stat.production > 0)
+  );
 };
 
 export const getStatisticsTotal = (

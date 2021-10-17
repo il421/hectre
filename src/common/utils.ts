@@ -19,15 +19,8 @@ export const toArray = <T extends object>(obj: T) =>
  * Converts refData to Map
  * @param arr
  */
-export const refDataToMap = (
-  arr: RefData[]
-): Map<string, { name: string; color: string }> =>
-  new Map(
-    arr.map((dto: RefData) => [
-      dto.id,
-      { name: dto.name, color: randomColor() }
-    ])
-  );
+export const refDataToMap = (arr: RefData[]): Map<string, string> =>
+  new Map(arr.map((dto: RefData) => [dto.id, dto.name]));
 
 /**
  * Generate random color code
@@ -40,3 +33,10 @@ export const randomColor = () =>
  */
 export const toLocalRound = (num: Number, fraction?: number) =>
   Number(num.toFixed(fraction ?? 2)).toLocaleString();
+
+/**
+ * Converts Map to refData
+ * @param map
+ */
+export const refDataToObj = (map: Map<string, string>): RefData[] =>
+  Array.from(map.keys()).map(key => ({ id: key, name: map.get(key)! }));
