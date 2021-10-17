@@ -3,8 +3,8 @@ import { Fragment, FunctionComponent, memo, useContext } from "react";
 import { parse } from "query-string";
 import { useHistory, useRouteMatch } from "react-router-dom";
 
-import { Context as AuthorizationContext } from "./contexts/AuthorizationContext";
-import { Routes } from "./router";
+import { Context as AuthorizationContext } from "../contexts/AuthorizationContext";
+import { Routes } from "../router";
 
 /** This component is responsible for authorization. When we receive code in
  * callback url we store one in AuthorizationContext

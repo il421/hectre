@@ -1,5 +1,6 @@
 import { Dispatch } from "react";
 
+import { AxiosError } from "axios";
 import { DateTime } from "luxon";
 
 import {
@@ -37,7 +38,7 @@ type HarvestContextState = {
   loading: boolean;
   orchards: HarvestRefData["orchards"];
   variety: HarvestRefData["variety"];
-  error?: Error;
+  error?: AxiosError;
   filter: Filter;
 };
 

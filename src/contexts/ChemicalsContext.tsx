@@ -1,5 +1,7 @@
 import { Dispatch } from "react";
 
+import { AxiosError } from "axios";
+
 import { ChemicalDto, getChemicals } from "../api/chemicals";
 import { Chemical } from "../models/Chemical";
 import { createContext, ReducerAction } from "./createContext";
@@ -17,7 +19,7 @@ type ChemicalsContextState = {
   loading: boolean;
   show: number;
   page: number;
-  error?: Error;
+  error?: AxiosError;
 };
 
 interface ChemicalsMethods {
